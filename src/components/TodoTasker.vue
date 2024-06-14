@@ -1,13 +1,14 @@
 <script setup>
-defineProps(['day', 'changed_day'])
-var emit = defineEmits(['remove_item', 'add_item', 'edit_item'])
+let props = defineProps(['changed_day'])
+let emit = defineEmits(['remove_item', 'add_item', 'edit_item'])
 
 import TodoItem from './TodoItem.vue'
 import TodoControl from './TodoControl.vue';
 
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
-var newItem = ref({ title: '', time: '' })
+let newItem = ref({ title: '', time: '' })
+let changed_day = ref(props.changed_day)
 
 const addItem = (day_id) => {
   emit('add_item', day_id, newItem.value)
@@ -22,39 +23,36 @@ const removeItem = (day_id, item) => {
 const editItem = (day_id, item_id, item) => {
   emit('edit_item', day_id, item_id, item)
 }
+
+const tasker = computed(() => {
+  return changed_day.value
+})
 </script>
 
 <template>
-    <table
-      v-show="day.title === changed_day"
-    >
-      <thead>
-        <tr>
-          <th></th>
-          <th></th>
-          <th>
-            <img
-              alt="star"
-              class="star"
-              src="../assets/star.svg"
-              title="Перетащите в другой день для копирования задач"
-            />
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <TodoItem
-          v-for="item in day.tasks.value"
-          :key="item.id"
-          :day_id="day.id"
-          :item="item"
-          @remove="removeItem(day.id, item)"
-          @edit="editItem"
-        />
-        <TodoControl
-          :newItem="newItem"
-          @add="addItem(day.id)"
-        />
-      </tbody>
-    </table>
+  <div
+    class="tasker"
+    :id="tasker.id"
+  >
+    <div class="bar">
+      <img
+        alt="star"
+        class="star"
+        src="../assets/star.svg"
+        title="Перетащите в другой день для копирования задач"
+      />
+    </div>
+    <TodoItem
+      v-for="item in tasker.tasks"
+      :key="item.id + tasker.id"
+      :day_id="tasker.id"
+      :item="item"
+      @remove="removeItem(tasker.id, item)"
+      @edit="editItem"
+    />
+    <TodoControl
+      :newItem="newItem"
+      @add="addItem(tasker.id)"
+    />
+  </div>
 </template>

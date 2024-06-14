@@ -1,10 +1,10 @@
 <script setup>
-var props = defineProps(['newItem'])
+let props = defineProps(['newItem'])
 defineEmits(['add'])
 
 import { ref, watch } from 'vue'
 
-var newItem = ref(props.newItem)
+let newItem = ref(props.newItem)
 
 watch(() => props.newItem, (newVal) => {
   newItem.value = newVal
@@ -12,15 +12,13 @@ watch(() => props.newItem, (newVal) => {
 </script>
 
 <template>
-  <tr>
-    <td><input name="time" v-model="newItem.time" @keyup.enter="$emit('add')" /></td>
-    <td><input name="title" v-model="newItem.title" @keyup.enter="$emit('add')" /></td>
-    <td>
-      <button @click="$emit('add')">
-        <img src="../assets/plus.svg" alt="add" />
-      </button>
-    </td>
-  </tr>
+  <div class="row control">
+    <input name="time" v-model="newItem.time" @keyup.enter="$emit('add')" />
+    <input name="title" v-model="newItem.title" @keyup.enter="$emit('add')" />
+    <button @click="$emit('add')">
+      <img src="../assets/plus.svg" alt="add" />
+    </button>
+  </div>
 </template>
 
 <style scoped>

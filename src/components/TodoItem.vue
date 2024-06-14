@@ -33,17 +33,19 @@ const deleteRow = () => {
 </script>
 
 <template>
-  <tr :class="{ outdated: is_outdated(), delete: deleted }">
-    <td><div contenteditable @input="edit_time">{{ item.time }}</div></td>
-    <td><div contenteditable @input="edit_title">{{ item.title }}</div></td>
-    <td>
-      <img src="../assets/del.svg" @click="deleteRow" alt="delete" />
-    </td>
-  </tr>
+  <div class="row" :class="{ outdated: is_outdated(), delete: deleted }">
+    <div contenteditable @input="edit_time">{{ item.time }}</div>
+    <div contenteditable @input="edit_title">{{ item.title }}</div>
+    <div><img src="../assets/del.svg" @click="deleteRow" alt="delete" /></div>
+  </div>
 </template>
 
 <style scoped>
 .outdated {
   color: red;
+}
+
+div img {
+  cursor: pointer;
 }
 </style>

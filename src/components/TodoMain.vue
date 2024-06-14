@@ -2,7 +2,7 @@
 import TodoTasker from './TodoTasker.vue';
 import TodoChangeDay from './TodoChangeDay.vue';
 
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 
 let now = new Date();
 let day = now.getDay();
@@ -44,7 +44,7 @@ const loadData = () => {
   }
 }
 
-let changed_day = ref(days[day-1].title);
+let changed_day = ref(days[day-1]);
 
 const sort_tasks = (day_id) => {
   days[day_id].tasks.value.sort((a, b) => {
@@ -84,7 +84,7 @@ const removeItem = (day_id, item) => {
 }
 
 const changeDay = (day) => {
-  changed_day.value = day
+  changed_day.value = days.filter(d => d.title === day)[0]
 }
 
 const editItem = (day_id, item_id, item) => {
@@ -100,17 +100,20 @@ const copyDayTasks = (from_day, to_day) => {
 onMounted(() => {
   loadData()
 })
+
+const tasker = computed(() => {
+  return {
+    changed_day
+  }
+})
 </script>
 
 <template>
   <div
-    v-for="day in days"
-    :key="day.id"
     class="middle"
   >
     <TodoTasker
-      :day="day"
-      :changed_day="changed_day"
+      :changed_day="tasker.changed_day"
       @remove_item="removeItem"
       @add_item="addItem"
       @edit_item="editItem"

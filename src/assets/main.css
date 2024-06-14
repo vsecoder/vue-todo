@@ -1,5 +1,6 @@
 @import './base.css';
 
+
 #app {
   width: max-content;
   position: absolute;
@@ -22,4 +23,47 @@
 .styled div {
   padding: 8px 32px;
   cursor: pointer;
+}
+
+.row {
+  display: grid;
+  
+  grid-template-columns: 80px 200px auto;
+  grid-gap: 8px;
+
+  div {
+    padding: 8px 12px;
+    animation: addRow 0.4s 1 linear;
+  }
+
+  div:first-child {
+    text-align: center;
+  }
+}
+
+.tasker {
+  border: 1px solid #DEDEE1;
+  border-radius: 5px;
+  background-color: white;
+  max-width: 400px;
+  padding: 32px;
+
+  .star {
+    width: 23px;
+  }
+  
+  .bar {
+    width: 100%;
+    text-align: right;
+    margin-bottom: 20px;
+    padding: 8px;
+  }
+}
+
+.control {
+  margin-top: 16px;
+}
+
+.delete {
+  animation: deleteRow 0.4s 1 linear;
 }

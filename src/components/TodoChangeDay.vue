@@ -1,6 +1,6 @@
 <script setup>
-var props = defineProps(['days', 'changed_day'])
-var emit = defineEmits(['change_day', 'copy_day_tasks'])
+let props = defineProps(['days', 'changed_day'])
+let emit = defineEmits(['change_day', 'copy_day_tasks'])
 
 import { ref } from 'vue'
 

@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -13,41 +15,6 @@ body {
   position: relative;
   font-weight: 400;
   font-size: 16px;
-}
-
-table {
-  padding: 30px;
-  vertical-align: middle;
-  border: 1px solid #DEDEE1;
-  border-radius: 8px;
-  background-color: white;
-
-  tr {
-    margin: 20px;
-    animation: addRow 0.4s 1 linear;
-  }
-
-  td {
-    padding: 8px 12px;
-  }
-
-  td:has(img), td:first-child {
-    text-align: center;
-  }
-
-  td:has(input) {
-    padding: 0 8px;
-  }
-
-  tr.delete {
-    animation: deleteRow 0.4s 1 linear;
-  }
-
-  .star {
-    width: 23px;
-    height: 23px;
-    margin-bottom: 48px;
-  }
 }
 
 input {
@@ -76,6 +43,7 @@ button {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -85,6 +53,7 @@ button {
   0% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
   }
