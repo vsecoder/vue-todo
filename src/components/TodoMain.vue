@@ -56,6 +56,7 @@ const sort_tasks = (day_id) => {
     }
     return 0
   })
+  saveData()
 }
 
 const addItem = (day_id, newItem) => {
