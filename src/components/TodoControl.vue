@@ -17,7 +17,7 @@ watch(() => props.newItem, (newVal) => {
     <td><input name="title" v-model="newItem.title" @keyup.enter="$emit('add')" /></td>
     <td>
       <button @click="$emit('add')">
-        <img src="../assets/plus.svg" />
+        <img src="../assets/plus.svg" alt="add" />
       </button>
     </td>
   </tr>

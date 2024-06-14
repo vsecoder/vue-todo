@@ -28,6 +28,20 @@ const editItem = (day_id, item_id, item) => {
     <table
       v-show="day.title === changed_day"
     >
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th>
+            <img
+              alt="star"
+              class="star"
+              src="../assets/star.svg"
+              title="Перетащите в другой день для копирования задач"
+            />
+          </th>
+        </tr>
+      </thead>
       <tbody>
         <TodoItem
           v-for="item in day.tasks.value"

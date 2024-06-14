@@ -31,16 +31,22 @@ table {
     padding: 8px 12px;
   }
 
-  td:has(img) {
+  td:has(img), td:first-child {
     text-align: center;
   }
 
   td:has(input) {
     padding: 0 8px;
   }
-  
+
   tr.delete {
     animation: deleteRow 0.4s 1 linear;
+  }
+
+  .star {
+    width: 23px;
+    height: 23px;
+    margin-bottom: 48px;
   }
 }
 

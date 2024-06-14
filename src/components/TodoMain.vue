@@ -61,6 +61,8 @@ const sort_tasks = (day_id) => {
 const addItem = (day_id, newItem) => {
   // check if the fields are not empty
   if (newItem.title === '' || newItem.time === '') {
+    // if the fields are empty, sort the tasks
+    sort_tasks(day_id)
     return
   }
   // get the last id of the tasks array
@@ -71,8 +73,6 @@ const addItem = (day_id, newItem) => {
     title: newItem.title,
     time: newItem.time
   })
-  // sort the tasks array by time
-  sort_tasks(day_id)
   // save the data to the local storage
   saveData()
 }
@@ -88,7 +88,11 @@ const changeDay = (day) => {
 
 const editItem = (day_id, item_id, item) => {
   days[day_id].tasks.value.filter(i => i.id === item_id)[0] = item
-  sort_tasks(day_id)
+  saveData()
+}
+
+const copyDayTasks = (from_day, to_day) => {
+  days.filter(d => d.title === to_day)[0].tasks.value = days.filter(d => d.title === from_day)[0].tasks.value
   saveData()
 }
 
@@ -116,6 +120,7 @@ onMounted(() => {
       :days="days"
       :changed_day="changed_day"
       @change_day="changeDay"
+      @copy_day_tasks="copyDayTasks"
     />
   </div>
 </template>

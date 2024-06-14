@@ -37,7 +37,7 @@ const deleteRow = () => {
     <td><div contenteditable @input="edit_time">{{ item.time }}</div></td>
     <td><div contenteditable @input="edit_title">{{ item.title }}</div></td>
     <td>
-      <img src="../assets/del.svg" @click="deleteRow" />
+      <img src="../assets/del.svg" @click="deleteRow" alt="delete" />
     </td>
   </tr>
 </template>
