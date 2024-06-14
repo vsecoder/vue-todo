@@ -44,7 +44,7 @@ const tasker = computed(() => {
     </div>
     <TodoItem
       v-for="item in tasker.tasks"
-      :key="item.id + tasker.id"
+      :key="item.id + _ + tasker.id"
       :day_id="tasker.id"
       :item="item"
       @remove="removeItem(tasker.id, item)"
