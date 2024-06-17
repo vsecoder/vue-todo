@@ -1,22 +1,14 @@
 <script setup>
 let props = defineProps(['item', 'day_id'])
-let emit = defineEmits(['remove', 'edit'])
 
 import { ref } from 'vue'
+import { useTasksStore } from '@/stores/tasks';
+
+const tasksStore = useTasksStore();
 
 let day_id = props.day_id;
 let item = ref(props.item);
 let deleted = ref(false);
-
-const edit_time = (e) => {
-  item.value.time = e.target.innerText;
-  emit('edit', day_id, item.value.id, item.value);
-}
-
-const edit_title = (e) => {
-  item.value.title = e.target.innerText;
-  emit('edit', day_id, item.value.id, item.value);
-}
 
 const is_outdated = () => {
   let now = new Date().getHours() * 60 + new Date().getMinutes();
@@ -24,10 +16,18 @@ const is_outdated = () => {
   return now > item_time;
 }
 
+const edit_time = (e) => {
+  item.value.time = e.target.innerText;
+}
+
+const edit_title = (e) => {
+  item.value.title = e.target.innerText;
+}
+
 const deleteRow = () => {
   deleted.value = true;
   setTimeout(() => {
-    emit('remove', day_id, item.value.id);
+    tasksStore.removeTask(day_id, item.value.id);
   }, 300);
 }
 </script>

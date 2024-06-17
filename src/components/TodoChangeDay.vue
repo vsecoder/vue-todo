@@ -1,28 +1,26 @@
 <script setup>
-let props = defineProps(['days', 'changed_day'])
-let emit = defineEmits(['change_day', 'copy_day_tasks'])
+import { useTasksStore } from '@/stores/tasks';
 
-import { ref } from 'vue'
+let tasksStore = useTasksStore()
 
-var changed_day = ref(props.changed_day)
+tasksStore.getNowChangedDay()
 
 const changeDay = (day) => {
-  changed_day.value = day
-  emit('change_day', day)
+  tasksStore.changeDay(day)
 }
 
 const copyDayTasks = (day) => {
-  emit('copy_day_tasks', changed_day.value, day)
+  tasksStore.copyTasks(day)
 }
 </script>
 
 <template>
   <div
-    v-for="day in days"
+    v-for="day in tasksStore.days"
     :key="day.id"
-    :class="{ 'changed-day': day.title === changed_day }"
-    @click="changeDay(day.title)"
-    @drop="copyDayTasks(day.title)"
+    :class="{ 'changed-day': day.id === tasksStore.changed_day }"
+    @click="changeDay(day.id)"
+    @drop="copyDayTasks(day.id)"
     @dragover.prevent
     @dragenter.prevent
   >

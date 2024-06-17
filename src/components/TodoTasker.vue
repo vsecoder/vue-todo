@@ -1,58 +1,29 @@
 <script setup>
-let props = defineProps(['changed_day'])
-let emit = defineEmits(['remove_item', 'add_item', 'edit_item'])
-
 import TodoItem from './TodoItem.vue'
 import TodoControl from './TodoControl.vue';
 
-import { ref, computed } from 'vue';
+import { useTasksStore } from '@/stores/tasks';
+import { computed } from 'vue';
 
-let newItem = ref({ title: '', time: '' })
-let changed_day = ref(props.changed_day)
+let tasksStore = useTasksStore()
 
-const addItem = (day_id) => {
-  emit('add_item', day_id, newItem.value)
-  newItem.value.time = ''
-  newItem.value.title = ''
-}
-
-const removeItem = (day_id, item) => {
-  emit('remove_item', day_id, item)
-}
-
-const editItem = (day_id, item_id, item) => {
-  emit('edit_item', day_id, item_id, item)
-}
+tasksStore.loadData()
 
 const tasker = computed(() => {
-  return changed_day.value
+  tasksStore.saveData()
+  return {
+    day: tasksStore.days[tasksStore.changed_day]
+  }
 })
 </script>
 
 <template>
-  <div
-    class="tasker"
-    :id="tasker.id"
-  >
+  <div class="tasker">
     <div class="bar">
-      <img
-        alt="star"
-        class="star"
-        src="../assets/star.svg"
-        title="Перетащите в другой день для копирования задач"
-      />
+      <img alt="star" class="star" src="../assets/star.svg" title="Перетащите в другой день для копирования задач" />
     </div>
-    <TodoItem
-      v-for="item in tasker.tasks"
-      :key="item.id + _ + tasker.id"
-      :day_id="tasker.id"
-      :item="item"
-      @remove="removeItem(tasker.id, item)"
-      @edit="editItem"
-    />
-    <TodoControl
-      :newItem="newItem"
-      @add="addItem(tasker.id)"
-    />
+    <TodoItem v-for="item in tasker.day.tasks" :key="item.id + _ + tasker.day.id" :day_id="tasker.day.id" :item="item" />
+    <p v-if="tasker.day.tasks.length === 0">Нет задач</p>
+    <TodoControl />
   </div>
 </template>
