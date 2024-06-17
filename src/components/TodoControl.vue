@@ -22,13 +22,3 @@ const addItem = () => {
     </button>
   </div>
 </template>
-
-<style scoped>
-input[name="time"] {
-  width: 80px;
-}
-
-input[name="title"] {
-  width: 200px;
-}
-</style>
